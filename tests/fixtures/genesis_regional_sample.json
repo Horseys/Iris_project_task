@@ -1,0 +1,125 @@
+{
+  "_fixture_note": "Synthetic mock values for tests; not authoritative Destatis observations.",
+  "structure": {
+    "table": {
+      "code": "52311-01-04-4",
+      "lastChange": "2026-10-28T10:44:38.463Z"
+    },
+    "variables": {
+      "KREISE": {
+        "label": {
+          "de": "Kreise und kreisfreie Städte"
+        }
+      },
+      "JAHR": {
+        "label": {
+          "de": "Jahr"
+        }
+      }
+    },
+    "contents": {
+      "GEW011": {
+        "functions": {
+          "QMU": {
+            "label": {
+              "de": "Anzahl"
+            }
+          }
+        }
+      },
+      "GEW013": {
+        "functions": {
+          "QMU": {
+            "label": {
+              "de": "Anzahl"
+            }
+          }
+        }
+      }
+    },
+    "variableValues": {
+      "01001": {
+        "label": {
+          "de": "Flensburg, kreisfreie Stadt"
+        }
+      },
+      "09162": {
+        "label": {
+          "de": "München, kreisfreie Stadt"
+        }
+      },
+      "11007007": {
+        "label": {
+          "de": "Berlin-Tempelhof-Schöneberg"
+        }
+      }
+    }
+  },
+  "data": {
+    "data": [
+      {
+        "code": "DS_022",
+        "id": [
+          "statistic",
+          "content",
+          "JAHR",
+          "KREISE"
+        ],
+        "size": [
+          1,
+          2,
+          2,
+          3
+        ],
+        "dimension": {
+          "statistic": {
+            "category": {
+              "index": {
+                "52311": 0
+              }
+            }
+          },
+          "content": {
+            "category": {
+              "index": {
+                "GEW011$QMU": 0,
+                "GEW013$QMU": 1
+              }
+            }
+          },
+          "JAHR": {
+            "category": {
+              "index": {
+                "2023": 0,
+                "2024": 1
+              }
+            }
+          },
+          "KREISE": {
+            "category": {
+              "index": {
+                "01001": 0,
+                "09162": 1,
+                "11007007": 2
+              }
+            }
+          }
+        },
+        "value": [
+          10,
+          20,
+          300,
+          11,
+          21,
+          301,
+          2,
+          3,
+          30,
+          null,
+          4,
+          31
+        ]
+      }
+    ]
+  }
+}
