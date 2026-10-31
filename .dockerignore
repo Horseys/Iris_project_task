@@ -1,7 +1,16 @@
 .git
 .env
+.env.*
+.vscode
 .pytest_cache
+.mypy_cache
+.ruff_cache
 __pycache__
 *.py[cod]
 .venv
+venv
+ENV
+build
+dist
+*.egg-info
 *.zip
