@@ -153,7 +153,7 @@ GROUP BY source_table_code, county_key, observation_year
 HAVING COUNT(*) > 1;
 ```
 
-Automated tests cover table/measure validation, county-level key filtering, leading-zero preservation, year filtering, missing-value handling, integer validation, dry-run counts, DB URI enforcement, and compilation of the staging-only Postgres upsert.
+Automated tests cover API URL, language, and timeout parameters; HTTP, JSON, and invalid-response handling; credential and timeout validation; table and measure validation; county-level key filtering; leading-zero preservation; year filtering and invalid ranges; timezone validation; malformed and duplicate cubes; missing-value handling; integer validation; dry-run counts; DB URI enforcement; staging-only upsert SQL; and duplicate stable keys within a write batch. Run them with `python -m pytest -q`.
 
 Local Docker integration was exercised with PostgreSQL 16.4 and PostGIS 3.4.3. The first live 2024 load inserted 475 rows; repeating it inserted 0 and updated 0. SQL verification found 475 observations across 475 regional keys and 0 duplicate stable keys. These are local candidate staging results only; no shared or production database was accessed.
 

@@ -80,3 +80,47 @@ def test_rejects_invalid_count_instead_of_coercing_it() -> None:
 def test_rejects_year_ranges_not_present_in_source() -> None:
     with pytest.raises(SourceDataError, match="not present"):
         parse_payload(load_payload(), start_year=2030, end_year=2030)
+
+
+def test_rejects_reversed_year_range() -> None:
+    with pytest.raises(SourceDataError, match="start_year"):
+        parse_payload(load_payload(), start_year=2025, end_year=2024)
+
+
+def test_rejects_naive_retrieval_timestamp() -> None:
+    with pytest.raises(SourceDataError, match="timezone"):
+        parse_payload(
+            load_payload(),
+            retrieved_at=datetime(2026, 10, 30),
+        )
+
+
+def test_rejects_cube_with_incomplete_value_array() -> None:
+    payload = load_payload()
+    payload.data["data"][0]["value"].pop()
+
+    with pytest.raises(SourceDataError, match="value count"):
+        parse_payload(payload)
+
+
+def test_rejects_duplicate_county_cube() -> None:
+    payload = load_payload()
+    payload.data["data"].append(payload.data["data"][0].copy())
+
+    with pytest.raises(SourceDataError, match="exactly one county cube"):
+        parse_payload(payload)
+
+
+@pytest.mark.parametrize("marker", [".", "..", "...", ""])
+def test_preserves_genesis_missing_markers_as_null(marker: str) -> None:
+    payload = load_payload()
+    payload.data["data"][0]["value"][9] = marker
+
+    rows = parse_payload(
+        payload,
+        start_year=2024,
+        end_year=2024,
+        retrieved_at=datetime(2026, 10, 30, tzinfo=timezone.utc),
+    )
+
+    assert rows[0].deregistrations is None

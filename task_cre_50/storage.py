@@ -67,6 +67,12 @@ class PersistenceResult:
 def build_upsert_statement(rows: Sequence[Observation]) -> Insert:
     if not rows:
         raise ValueError("Cannot build a staging upsert for an empty batch")
+    keys = [
+        (row.source_table_code, row.county_key, row.observation_year)
+        for row in rows
+    ]
+    if len(keys) != len(set(keys)):
+        raise ValueError("Staging batch contains duplicate stable keys")
     values = [_observation_values(row) for row in rows]
     insert_statement = postgresql_insert(target_table).values(values)
     excluded = insert_statement.excluded

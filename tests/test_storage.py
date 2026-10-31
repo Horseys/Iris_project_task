@@ -42,3 +42,10 @@ def test_upsert_targets_only_staging_and_has_stable_conflict_key() -> None:
 def test_empty_uri_is_rejected_before_any_database_access() -> None:
     with pytest.raises(PersistenceError, match="DB_URI is required"):
         load_observations("", [sample_observation()])
+
+
+def test_upsert_rejects_duplicate_keys_in_one_batch() -> None:
+    observation = sample_observation()
+
+    with pytest.raises(ValueError, match="duplicate stable keys"):
+        build_upsert_statement([observation, observation])
